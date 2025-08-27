@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8
+    env_file:
+      - ./.env
+### Uncomment port mappings if you want to enable external access ###
+#    ports:
+#      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - .init.sql:/docker-entrypoint-initdb.d/init.sql
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_PROFILE: ${BUILD_PROFILE:-debug}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      - RUST_BACKTRACE=1
+    env_file:
+      - ./.env
+volumes:
+  mysql-data:

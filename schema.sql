@@ -29,3 +29,9 @@ CREATE TABLE IF NOT EXISTS items (
   information TEXT NOT NULL,
   CONSTRAINT fk_items_gear FOREIGN KEY (id) REFERENCES gear(id)
 );
+
+
+INSERT INTO gear(name, description, price) VALUES
+('Agent', 'Self-adaptive-AI powered smartphone.', 100),
+('Airhypo', 'Easy to use drug distribution platform which uses a quick burst of compressed air to force a drug through the skin', 50),
+('Kibble Pack', 'One foil package of dry, pet food-like cereal or wafers equivalent to a single meal', 10)

@@ -2,8 +2,7 @@ use crate::Gear;
 use axum::{
     extract::{Path, State},
     http::StatusCode,
-    routing::get,
-    Json, Router,
+    Json,
 };
 use sea_orm::{DatabaseConnection, EntityTrait};
 use serde::Serialize;
@@ -11,7 +10,7 @@ use serde::Serialize;
 use crate::entity::gear;
 
 #[derive(Serialize)]
-struct GearResponse {
+pub struct GearResponse {
     id: i32,
     name: String,
 }
@@ -25,17 +24,7 @@ impl From<gear::Model> for GearResponse {
     }
 }
 
-pub struct GearRouter;
-
-impl GearRouter {
-    pub fn initialize() -> Router<sea_orm::DatabaseConnection> {
-        Router::new()
-            .route("/get_all", get(get_all_gear))
-            .route("/get/{gear_id}", get(get_by_id))
-    }
-}
-
-async fn get_all_gear(
+pub async fn get_all(
     State(db): State<DatabaseConnection>,
 ) -> Result<Json<Vec<GearResponse>>, StatusCode> {
     let gear = Gear::find()
@@ -45,7 +34,7 @@ async fn get_all_gear(
     Ok(Json(gear.into_iter().map(GearResponse::from).collect()))
 }
 
-async fn get_by_id(
+pub async fn get_by_id(
     State(db): State<DatabaseConnection>,
     Path(gear_id): Path<i32>,
 ) -> Result<Json<Vec<GearResponse>>, StatusCode> {

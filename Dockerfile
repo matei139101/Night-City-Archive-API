@@ -1,4 +1,4 @@
-FROM rust:1.85.1 AS builder
+FROM rust:1.89 AS builder
 
 WORKDIR /usr/src/Night-City-Archive-API
 COPY . .
@@ -16,7 +16,7 @@ RUN if [ "$BUILD_PROFILE" = "release" ]; then \
         exit 1; \
     fi
 
-FROM rust:1.85.1-slim
+FROM rust:1.89-slim
 WORKDIR /usr/src/Night-City-Archive-API
 
 # Define a build argument for the profile

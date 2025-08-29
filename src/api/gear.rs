@@ -1,4 +1,5 @@
-use crate::{entity, Gear};
+//use crate::{entity, Gear};
+use entity::prelude::Gear;
 use axum::{
     extract::{Path, State},
     http::StatusCode,

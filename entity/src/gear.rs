@@ -4,23 +4,31 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
-#[sea_orm(table_name = "source")]
+#[sea_orm(table_name = "gear")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub name: String,
-    pub href: String,
+    pub title: String,
+    pub description: String,
+    pub cost: i32,
+    pub source: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_one = "super::gear::Entity")]
-    Gear,
+    #[sea_orm(
+        belongs_to = "super::source::Entity",
+        from = "Column::Id",
+        to = "super::source::Column::Id",
+        on_update = "Restrict",
+        on_delete = "Restrict"
+    )]
+    Source,
 }
 
-impl Related<super::gear::Entity> for Entity {
+impl Related<super::source::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::Gear.def()
+        Relation::Source.def()
     }
 }
 
@@ -28,6 +36,6 @@ impl ActiveModelBehavior for ActiveModel {}
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelatedEntity)]
 pub enum RelatedEntity {
-    #[sea_orm(entity = "super::gear::Entity")]
-    Gear,
+    #[sea_orm(entity = "super::source::Entity")]
+    Source,
 }

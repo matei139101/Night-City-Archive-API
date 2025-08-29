@@ -4,11 +4,12 @@ services:
     env_file:
       - ./.env
 ### Uncomment port mappings if you want to enable external access ###
-#    ports:
-#      - "3306:3306"
+    ports:
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql
+### Uncomment if you want an initial schema to be executed on startup with empty database ###
+#      - ./schema.sql:/docker-entrypoint-initdb.d/init.sql
   backend:
     build:
       context: .

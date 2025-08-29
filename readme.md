@@ -22,6 +22,7 @@ To stop the container:
 sudo docker-compose down
 ```
 
+
 ### Removing mysql database
 ```
 sudo docker-compose down

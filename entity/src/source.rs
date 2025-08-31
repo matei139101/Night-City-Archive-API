@@ -9,12 +9,13 @@ pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
     pub name: String,
-    pub href: String,
+    pub product_page: String,
+    pub release_date: Date,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_one = "super::gear::Entity")]
+    #[sea_orm(has_many = "super::gear::Entity")]
     Gear,
 }
 

@@ -1,0 +1,12 @@
+[package]
+name = "seeder"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "seeder"
+path = "src/lib.rs"
+
+[dependencies]
+sea-orm = { version = "1.1.14", features = ["sqlx-mysql"] }
+entity = { path = "../entity" }

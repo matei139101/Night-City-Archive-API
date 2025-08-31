@@ -8,20 +8,20 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    pub title: String,
+    pub name: String,
     pub description: String,
     pub cost: i32,
-    pub source: i32,
+    pub source_id: i32,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
     #[sea_orm(
         belongs_to = "super::source::Entity",
-        from = "Column::Id",
+        from = "Column::SourceId",
         to = "super::source::Column::Id",
-        on_update = "Restrict",
-        on_delete = "Restrict"
+        on_update = "Cascade",
+        on_delete = "Cascade"
     )]
     Source,
 }

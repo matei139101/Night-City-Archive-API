@@ -1,4 +1,5 @@
 use sea_orm_migration::{prelude::*, schema::*};
+use crate::enums::{Source, Gear};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -33,20 +34,4 @@ impl MigrationTrait for Migration {
             .drop_table(Table::drop().table(Gear::Table).to_owned())
             .await
     }
-}
-
-#[derive(DeriveIden)]
-enum Gear {
-    Table,
-    Id,
-    Name,
-    Description,
-    Cost,
-    SourceId
-}
-
-#[derive(DeriveIden)]
-enum Source{
-    Table,
-    Id,
 }

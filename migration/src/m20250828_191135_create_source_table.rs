@@ -1,4 +1,5 @@
 use sea_orm_migration::{prelude::*, schema::*};
+use crate::enums::{Source};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -17,23 +18,13 @@ impl MigrationTrait for Migration {
                 .col(string(Source::ProductPage))
                 .col(date(Source::ReleaseDate))
                 .to_owned(),
-        ).await?;
-        Ok(())
+        ).await
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         // Replace the sample below with your own migration scripts
         manager
             .drop_table(Table::drop().table(Source::Table).to_owned())
-            .await?;
-        Ok(())
+            .await
     }
-}
-#[derive(DeriveIden)]
-enum Source{
-    Table,
-    Id,
-    Name,
-    ProductPage,
-    ReleaseDate
 }

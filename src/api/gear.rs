@@ -5,23 +5,12 @@ use axum::{
     http::StatusCode,
     Json,
 };
-use sea_orm::{DatabaseConnection, EntityTrait, JoinType};
-
-pub async fn get_all(
-    State(db): State<DatabaseConnection>,
-) -> Result<Json<Vec<entity::gear::Model>>, StatusCode> {
-    let gear = Gear::find()
-        .all(&db)
-        .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
-    Ok(Json(gear.into_iter().collect()))
-}
+use sea_orm::{DatabaseConnection, EntityTrait};
 
 pub async fn get_all_with_source(
     State(db): State<DatabaseConnection>,
 ) -> Result<Json<Vec<(entity::gear::Model, Vec<entity::source::Model>)>>, StatusCode> {
     let gear = Gear::find()
-        
         .find_with_related(Source)
         .all(&db)
         .await

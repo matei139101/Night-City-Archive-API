@@ -15,8 +15,32 @@ pub struct Model {
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
+    #[sea_orm(has_many = "super::armor::Entity")]
+    Armor,
+    #[sea_orm(has_many = "super::cyberware::Entity")]
+    Cyberware,
     #[sea_orm(has_many = "super::gear::Entity")]
     Gear,
+    #[sea_orm(has_many = "super::melee_weapon::Entity")]
+    MeleeWeapon,
+    #[sea_orm(has_many = "super::ranged_weapon::Entity")]
+    RangedWeapon,
+    #[sea_orm(has_many = "super::skill::Entity")]
+    Skill,
+    #[sea_orm(has_many = "super::stat::Entity")]
+    Stat,
+}
+
+impl Related<super::armor::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Armor.def()
+    }
+}
+
+impl Related<super::cyberware::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Cyberware.def()
+    }
 }
 
 impl Related<super::gear::Entity> for Entity {
@@ -25,10 +49,46 @@ impl Related<super::gear::Entity> for Entity {
     }
 }
 
+impl Related<super::melee_weapon::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::MeleeWeapon.def()
+    }
+}
+
+impl Related<super::ranged_weapon::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::RangedWeapon.def()
+    }
+}
+
+impl Related<super::skill::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Skill.def()
+    }
+}
+
+impl Related<super::stat::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Stat.def()
+    }
+}
+
 impl ActiveModelBehavior for ActiveModel {}
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelatedEntity)]
 pub enum RelatedEntity {
+    #[sea_orm(entity = "super::armor::Entity")]
+    Armor,
+    #[sea_orm(entity = "super::cyberware::Entity")]
+    Cyberware,
     #[sea_orm(entity = "super::gear::Entity")]
     Gear,
+    #[sea_orm(entity = "super::melee_weapon::Entity")]
+    MeleeWeapon,
+    #[sea_orm(entity = "super::ranged_weapon::Entity")]
+    RangedWeapon,
+    #[sea_orm(entity = "super::skill::Entity")]
+    Skill,
+    #[sea_orm(entity = "super::stat::Entity")]
+    Stat,
 }

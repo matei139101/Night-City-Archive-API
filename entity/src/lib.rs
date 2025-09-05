@@ -2,5 +2,13 @@
 
 pub mod prelude;
 
+pub mod armor;
+pub mod cyberware;
+pub mod cyberware_type;
 pub mod gear;
+pub mod melee_weapon;
+pub mod ranged_weapon;
+pub mod sea_orm_active_enums;
+pub mod skill;
 pub mod source;
+pub mod stat;

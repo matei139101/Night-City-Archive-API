@@ -12,6 +12,7 @@ impl Seed for Seeder {
     Ok(())
     }
 }
+#[allow(async_fn_in_trait)]
 pub trait Seed {
     async fn seed(db: &DatabaseConnection) -> Result<(), sea_orm::DbErr>;
 }

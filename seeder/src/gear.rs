@@ -1,3 +1,4 @@
+//Removing ActiveModelTrait breaks macro yet IDE is crying
 use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait, ActiveValue::Set};
 use entity;
 use crate::Seed;
